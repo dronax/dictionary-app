@@ -1,15 +1,33 @@
 import React from "react";
-import "./Header.css"
+import "./Header.css";
 import TextField from "@mui/material/TextField";
+import { ThemeProvider, useTheme, createTheme } from "@mui/material/styles";
 
-const Header = () => {
+const Header = ({ input, setInput }) => {
+  const darkTheme = createTheme({
+    palette: {
+      primary: {
+        main: "#fff",
+      },
+      mode: "dark",
+    },
+  });
   return (
     <div className="header">
-      <span className="title">Word Finder</span>
+      <span className="title">{input ? input : "Word Finder"}</span>
       <div className="inputs">
-        <TextField id="standard-basic" label="Standard"></TextField>
+        <ThemeProvider theme={darkTheme}>
+          <TextField
+            className="search"
+            label="Search your Word"
+            variant="standard"
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
+          />
+        </ThemeProvider>
       </div>
-
     </div>
   );
 };
